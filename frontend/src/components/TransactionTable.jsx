@@ -1,0 +1,4 @@
+import { Pencil, Trash2 } from 'lucide-react';
+import { Badge } from './UI'; import { currency, date } from '../utils/format';
+export default function TransactionTable({ items = [], onEdit, onDelete, compact = false }) { return <div className="table-wrap"><table><thead><tr><th>Data</th><th>Descrição</th><th>Categoria</th><th>Tipo</th><th className="right">Valor</th>{!compact&&<th/>}</tr></thead><tbody>{items.map(item=><tr key={item.id}><td>{date(item.data)}</td><td className="description">{item.descricao}</td><td>{item.categoria.nome}</td><td><Badge type={item.tipo}/></td><td className={`right amount ${item.tipo.toLowerCase()}`}>{item.tipo==='DESPESA'?'− ':'+ '}{currency(item.valor)}</td>{!compact&&<td className="actions"><button onClick={()=>onEdit(item)}><Pencil size={15}/></button><button onClick={()=>onDelete(item.id)}><Trash2 size={15}/></button></td>}</tr>)}</tbody></table></div>; }
+

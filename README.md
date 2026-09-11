@@ -9,8 +9,10 @@ Aplicação full stack de gestão financeira pessoal desenvolvida como projeto d
 - Persistência com PostgreSQL e Spring Data JPA
 - DTOs, validações e tratamento padronizado de erros
 - Dashboard responsivo em React
-- Testes com JUnit e Mockito
+- Testes automatizados com JUnit e Mockito
 - Documentação de API com Swagger/OpenAPI
+- CI com GitHub Actions para testes do backend e build do frontend
+- Docker e Docker Compose para subir backend + PostgreSQL
 - Estrutura separada entre frontend e backend
 
 ## Tecnologias
@@ -32,6 +34,13 @@ Aplicação full stack de gestão financeira pessoal desenvolvida como projeto d
 - Vite
 - JavaScript
 - CSS
+
+### DevOps e qualidade
+- Docker
+- Docker Compose
+- GitHub Actions
+- Maven
+- npm
 
 ## Funcionalidades
 
@@ -72,38 +81,24 @@ O frontend organiza páginas, componentes reutilizáveis, hooks, serviços e uti
 ```text
 FinanceFlow-Sistema-de-Gestao-Financeira/
 ├── backend/
+│   └── Dockerfile
 ├── frontend/
-├── .github/
+├── .github/workflows/
+│   ├── ci.yml
+│   └── deploy-pages.yml
+├── docker-compose.yml
 ├── .env.example
 └── README.md
 ```
 
 ## Como executar
 
-### Pré-requisitos
+### Opção 1: Docker Compose
 
-- Java 21
-- Maven 3.9+
-- Node.js 20+
-- PostgreSQL
-
-### 1. Banco de dados
-
-Crie um banco PostgreSQL chamado `financeflow`.
-
-Copie `.env.example` para `.env` ou exporte as variáveis:
-
-```text
-DB_URL=jdbc:postgresql://localhost:5432/financeflow
-DB_USERNAME=postgres
-DB_PASSWORD=postgres
-```
-
-### 2. Backend
+Com Docker instalado, suba o backend e o PostgreSQL com:
 
 ```bash
-cd backend
-mvn spring-boot:run
+docker compose up --build
 ```
 
 A API ficará disponível em:
@@ -118,7 +113,35 @@ Swagger:
 http://localhost:8080/swagger-ui.html
 ```
 
-### 3. Frontend
+### Opção 2: execução local
+
+#### Pré-requisitos
+
+- Java 21
+- Maven 3.9+
+- Node.js 20+
+- PostgreSQL
+
+#### Banco de dados
+
+Crie um banco PostgreSQL chamado `financeflow`.
+
+Copie `.env.example` para `.env` ou exporte as variáveis:
+
+```text
+DB_URL=jdbc:postgresql://localhost:5432/financeflow
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+```
+
+#### Backend
+
+```bash
+cd backend
+mvn spring-boot:run
+```
+
+#### Frontend
 
 ```bash
 cd frontend
@@ -134,7 +157,7 @@ http://localhost:5173
 
 Para usar outra URL de API, configure `VITE_API_URL`.
 
-## Testes e build
+## Testes e CI
 
 ### Backend
 
@@ -150,9 +173,11 @@ cd frontend
 npm run build
 ```
 
+O workflow `.github/workflows/ci.yml` executa automaticamente os testes do backend e valida o build do frontend em pushes e pull requests para `main`.
+
 ## Decisões de engenharia
 
-Este projeto foi estruturado para demonstrar mais do que apenas CRUD. A intenção é evidenciar separação de responsabilidades, organização de domínio, persistência relacional, validação, tratamento de erros, documentação e testes automatizados.
+Este projeto foi estruturado para demonstrar mais do que apenas CRUD. A intenção é evidenciar separação de responsabilidades, organização de domínio, persistência relacional, validação, tratamento de erros, documentação, testes automatizados e um fluxo básico de integração contínua.
 
 ## Roadmap
 
@@ -161,8 +186,6 @@ Próximas evoluções planejadas:
 - Spring Security
 - Autenticação JWT
 - Suporte a múltiplos usuários
-- Docker e Docker Compose
-- Pipeline de CI/CD
 - Exportação CSV
 - Relatórios financeiros
 - Deploy completo de frontend, backend e banco

@@ -1,2 +1,2 @@
-{"name":"financeflow-web","private":true,"version":"1.0.0","type":"module","scripts":{"dev":"vite","build":"vite build","lint":"eslint ."},"dependencies":{"@vitejs/plugin-react":"latest","vite":"latest","react":"latest","react-dom":"latest","lucide-react":"^0.468.0"},"devDependencies":{}}
+{"name":"financeflow-web","private":true,"version":"1.0.0","type":"module","scripts":{"dev":"vite","build":"vite build","lint":"eslint ."},"dependencies":{"@vitejs/plugin-react":"latest","vite":"latest","react":"latest","react-dom":"latest","lucide-react":"^1.43.0"},"devDependencies":{}}
 

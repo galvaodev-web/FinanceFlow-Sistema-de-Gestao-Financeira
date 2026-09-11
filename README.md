@@ -1,40 +1,97 @@
 # FinanceFlow
 
-Aplicação full stack de gestão financeira pessoal, criada como um projeto de portfólio com arquitetura em camadas, código legível e uma interface SaaS minimalista.
+Aplicação full stack de gestão financeira pessoal desenvolvida como projeto de portfólio, com foco em arquitetura backend, organização de domínio, API REST e experiência de uso em dashboard.
 
-## Sobre
+## Destaques
 
-O FinanceFlow centraliza receitas, despesas, categorias e orçamentos mensais. O dashboard apresenta saldo, totais, evolução financeira, distribuição de gastos e movimentações recentes.
+- Backend em Java 21 e Spring Boot
+- API REST com arquitetura em camadas
+- Persistência com PostgreSQL e Spring Data JPA
+- DTOs, validações e tratamento padronizado de erros
+- Dashboard responsivo em React
+- Testes com JUnit e Mockito
+- Documentação de API com Swagger/OpenAPI
+- Estrutura separada entre frontend e backend
 
 ## Tecnologias
 
-- Java 21, Spring Boot, Spring Web, Spring Data JPA e Bean Validation
-- PostgreSQL, Lombok e Swagger/OpenAPI
-- JUnit e Mockito
-- React, Vite, JavaScript e CSS puro
+### Backend
+- Java 21
+- Spring Boot
+- Spring Web
+- Spring Data JPA
+- Bean Validation
+- PostgreSQL
+- Lombok
+- Swagger / OpenAPI
+- JUnit
+- Mockito
+
+### Frontend
+- React
+- Vite
+- JavaScript
+- CSS
 
 ## Funcionalidades
 
-- CRUD de transações com validações e filtros combináveis
+- CRUD de transações financeiras
 - Cadastro e exclusão de categorias por tipo
-- Orçamento mensal por categoria, com gasto, percentual e saldo restante
-- Resumo financeiro e agrupamentos por categoria
-- Evolução mensal e últimas transações
-- Estados de carregamento, erro e vazio
+- Filtros combináveis de transações
+- Orçamento mensal por categoria
+- Cálculo de gasto, percentual utilizado e saldo restante
+- Resumo de receitas, despesas e saldo
+- Agrupamento de gastos por categoria
+- Evolução financeira mensal
+- Listagem de movimentações recentes
+- Estados de carregamento, erro e conteúdo vazio
 - Interface responsiva para desktop, tablet e celular
-- Respostas de erro padronizadas e documentação OpenAPI
 
 ## Arquitetura
 
-`React → API REST → Controller → Service → Repository → PostgreSQL`
+```text
+React
+  ↓
+API REST
+  ↓
+Controller
+  ↓
+Service
+  ↓
+Repository
+  ↓
+PostgreSQL
+```
 
-O backend separa API, regras de negócio, persistência, entidades, DTOs, mapeamento, configuração e exceções. O frontend separa páginas, componentes reutilizáveis, hooks, serviços e utilitários.
+O backend separa responsabilidades entre API, regras de negócio, persistência, entidades, DTOs, mapeamento, configuração e tratamento de exceções.
+
+O frontend organiza páginas, componentes reutilizáveis, hooks, serviços e utilitários.
+
+## Estrutura do projeto
+
+```text
+FinanceFlow-Sistema-de-Gestao-Financeira/
+├── backend/
+├── frontend/
+├── .github/
+├── .env.example
+└── README.md
+```
 
 ## Como executar
 
+### Pré-requisitos
+
+- Java 21
+- Maven 3.9+
+- Node.js 20+
+- PostgreSQL
+
 ### 1. Banco de dados
 
-Crie um banco PostgreSQL chamado `financeflow`. Copie `.env.example` para `.env` ou exporte as variáveis:
+Crie um banco PostgreSQL chamado `financeflow`.
+
+Copie `.env.example` para `.env` ou exporte as variáveis:
 
 ```text
 DB_URL=jdbc:postgresql://localhost:5432/financeflow
@@ -44,18 +101,24 @@ DB_PASSWORD=postgres
 
 ### 2. Backend
 
-É necessário Java 21 e Maven 3.9+.
-
 ```bash
 cd backend
 mvn spring-boot:run
 ```
 
-A API estará em `http://localhost:8080/api`. O Swagger estará em `http://localhost:8080/swagger-ui.html`. As categorias iniciais são cadastradas automaticamente no primeiro uso.
+A API ficará disponível em:
+
+```text
+http://localhost:8080/api
+```
+
+Swagger:
+
+```text
+http://localhost:8080/swagger-ui.html
+```
 
 ### 3. Frontend
-
-É necessário Node.js 20+.
 
 ```bash
 cd frontend
@@ -63,25 +126,51 @@ npm install
 npm run dev
 ```
 
-Para outra URL da API, defina `VITE_API_URL`. O frontend abre em `http://localhost:5173`.
+O frontend abre em:
 
-### 4. Testes e build
-
-```bash
-cd backend && mvn test
-cd frontend && npm run build
+```text
+http://localhost:5173
 ```
 
-## Screenshots
+Para usar outra URL de API, configure `VITE_API_URL`.
 
-Adicione aqui capturas do dashboard, das transações e dos orçamentos após executar o projeto.
+## Testes e build
 
-## Melhorias futuras
+### Backend
 
-- Spring Security, JWT, login e múltiplos usuários
-- Exportação CSV e relatórios
-- Docker, CI/CD e deploy
+```bash
+cd backend
+mvn test
+```
 
-## Sugestão de commits
+### Frontend
 
-`feat: create transaction domain` · `feat: add financial services` · `feat: expose REST API` · `test: add service tests` · `feat: create dashboard interface` · `feat: add budget tracking` · `docs: add project README`
+```bash
+cd frontend
+npm run build
+```
+
+## Decisões de engenharia
+
+Este projeto foi estruturado para demonstrar mais do que apenas CRUD. A intenção é evidenciar separação de responsabilidades, organização de domínio, persistência relacional, validação, tratamento de erros, documentação e testes automatizados.
+
+## Roadmap
+
+Próximas evoluções planejadas:
+
+- Spring Security
+- Autenticação JWT
+- Suporte a múltiplos usuários
+- Docker e Docker Compose
+- Pipeline de CI/CD
+- Exportação CSV
+- Relatórios financeiros
+- Deploy completo de frontend, backend e banco
+
+## Status
+
+Projeto funcional e em evolução contínua como parte do meu portfólio de desenvolvimento full stack com Java e React.
+
+---
+
+Desenvolvido por [Guilherme Galvão](https://github.com/galvaodev-web).

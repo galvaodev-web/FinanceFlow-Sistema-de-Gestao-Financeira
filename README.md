@@ -1,6 +1,6 @@
 # FinanceFlow
 
-Aplicação full stack de gestão financeira pessoal desenvolvida como projeto de portfólio, com foco em arquitetura backend, organização de domínio, API REST e experiência de uso em dashboard.
+Aplicação full stack de gestão financeira pessoal desenvolvida como projeto de portfólio, com foco em arquitetura backend, organização de domínio, API REST, testes automatizados e experiência de uso em dashboard.
 
 ## Destaques
 
@@ -10,10 +10,12 @@ Aplicação full stack de gestão financeira pessoal desenvolvida como projeto d
 - DTOs, validações e tratamento padronizado de erros
 - Dashboard responsivo em React
 - Testes automatizados com JUnit e Mockito
+- Cobertura de testes com JaCoCo
 - Documentação de API com Swagger/OpenAPI
-- CI com GitHub Actions para testes do backend e build do frontend
+- CI com GitHub Actions para `mvn verify` e build do frontend
 - Docker e Docker Compose para subir backend + PostgreSQL
-- Estrutura separada entre frontend e backend
+- Dependabot para Maven, npm e GitHub Actions
+- Documentação arquitetural em `docs/ARCHITECTURE.md`
 
 ## Tecnologias
 
@@ -28,6 +30,7 @@ Aplicação full stack de gestão financeira pessoal desenvolvida como projeto d
 - Swagger / OpenAPI
 - JUnit
 - Mockito
+- JaCoCo
 
 ### Frontend
 - React
@@ -39,6 +42,7 @@ Aplicação full stack de gestão financeira pessoal desenvolvida como projeto d
 - Docker
 - Docker Compose
 - GitHub Actions
+- Dependabot
 - Maven
 - npm
 
@@ -76,6 +80,8 @@ O backend separa responsabilidades entre API, regras de negócio, persistência,
 
 O frontend organiza páginas, componentes reutilizáveis, hooks, serviços e utilitários.
 
+A documentação arquitetural detalhada está em [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+
 ## Estrutura do projeto
 
 ```text
@@ -83,9 +89,13 @@ FinanceFlow-Sistema-de-Gestao-Financeira/
 ├── backend/
 │   └── Dockerfile
 ├── frontend/
-├── .github/workflows/
-│   ├── ci.yml
-│   └── deploy-pages.yml
+├── docs/
+│   └── ARCHITECTURE.md
+├── .github/
+│   ├── dependabot.yml
+│   └── workflows/
+│       ├── ci.yml
+│       └── deploy-pages.yml
 ├── docker-compose.yml
 ├── .env.example
 └── README.md
@@ -163,7 +173,13 @@ Para usar outra URL de API, configure `VITE_API_URL`.
 
 ```bash
 cd backend
-mvn test
+mvn verify
+```
+
+O comando executa os testes e gera o relatório JaCoCo em:
+
+```text
+target/site/jacoco/index.html
 ```
 
 ### Frontend
@@ -173,22 +189,24 @@ cd frontend
 npm run build
 ```
 
-O workflow `.github/workflows/ci.yml` executa automaticamente os testes do backend e valida o build do frontend em pushes e pull requests para `main`.
+O workflow `.github/workflows/ci.yml` executa automaticamente a verificação do backend e o build do frontend em pushes e pull requests para `main`. O relatório JaCoCo também é salvo como artefato da execução.
 
 ## Decisões de engenharia
 
-Este projeto foi estruturado para demonstrar mais do que apenas CRUD. A intenção é evidenciar separação de responsabilidades, organização de domínio, persistência relacional, validação, tratamento de erros, documentação, testes automatizados e um fluxo básico de integração contínua.
+Este projeto foi estruturado para demonstrar mais do que apenas CRUD. A intenção é evidenciar separação de responsabilidades, organização de domínio, persistência relacional, validação, tratamento de erros, documentação, testes automatizados, cobertura e integração contínua.
 
-## Roadmap
+Autenticação não será tratada como uma tela isolada: a evolução planejada inclui Spring Security, JWT e escopo dos dados por usuário para que transações, categorias e orçamentos pertençam de fato ao usuário autenticado.
+
+## Roadmap técnico
 
 Próximas evoluções planejadas:
 
-- Spring Security
-- Autenticação JWT
-- Suporte a múltiplos usuários
-- Exportação CSV
-- Relatórios financeiros
-- Deploy completo de frontend, backend e banco
+- Spring Security e autenticação JWT
+- Suporte a múltiplos usuários e autorização por proprietário do recurso
+- Testes de integração com Testcontainers
+- Flyway para versionamento de schema
+- Exportação CSV e relatórios financeiros
+- Deploy completo de frontend, backend e banco em cloud
 
 ## Status
 

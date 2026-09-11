@@ -8,7 +8,7 @@ on:
 
 jobs:
   backend:
-    name: Backend tests
+    name: Backend verify
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -26,8 +26,16 @@ jobs:
           cache: maven
           cache-dependency-path: backend/pom.xml
 
-      - name: Run backend tests
-        run: mvn --batch-mode test
+      - name: Verify backend and generate coverage report
+        run: mvn --batch-mode verify
+
+      - name: Upload JaCoCo report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-jacoco-report
+          path: backend/target/site/jacoco/
+          if-no-files-found: ignore
 
   frontend:
     name: Frontend build
